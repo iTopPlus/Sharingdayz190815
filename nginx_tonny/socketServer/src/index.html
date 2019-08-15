@@ -1,0 +1,24 @@
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('http://10.0.75.2');        
+        socket.on('news', function (data) {
+            console.log(data);
+            document.getElementById("message").innerHTML += data.message;
+        });
+        function sendmessage(){
+            var textbox = document.getElementById('textbox').value;
+            if(textbox.length > 0){
+                socket.emit('news', { message: textbox });
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input id="textbox" type="text"/><input type="button" value="Send" onclick="sendmessage()"/>
+    <div id="message"></div>
+</body>
+
+</html>

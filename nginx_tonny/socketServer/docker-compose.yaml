@@ -1,0 +1,46 @@
+version: '3'
+services:
+  redissocket:
+    image: redis:3
+    container_name: redissocket
+    ports:
+      - 6399:6379
+  socketio1:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: socket1
+    command: >        
+        npm start
+    volumes:
+      - ./src:/project
+      - node_modules:/project/node_modules
+    ports:
+      - 3000:80
+  socketio2:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: socket2
+    command: >        
+        npm start
+    volumes:
+      - ./src:/project
+      - node_modules:/project/node_modules
+    ports:
+      - 3001:80
+  socketio3:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: socket3
+    command: >        
+        npm start
+    volumes:
+      - ./src:/project
+      - node_modules:/project/node_modules
+    ports:
+      - 3002:80      
+volumes:
+  node_modules:
+    driver: local
